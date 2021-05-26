@@ -30,6 +30,7 @@ Route::post('/save-video/{name}', [HomeController::class,'saveVideo']);
 Route::get('/start-record-video', [HomeController::class,'startRecordVideo']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    header('Feature-Policy: camera \'self\' '.config('app.url').'/dashboard');
     return Inertia::render('Dashboard');
 })->name('dashboard');
 

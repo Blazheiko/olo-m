@@ -34,6 +34,8 @@
                     Register
                 </inertia-link>
 
+                <span>_____</span>
+
                 <inertia-link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
                     Forgot your password?
                 </inertia-link>
