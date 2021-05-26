@@ -5,6 +5,10 @@
 <!--                <jet-application-logo class="block h-12 w-auto" />-->
                 <span class="text-center text-4xl text-blue-500">Save video</span>
             </div>
+            <div>
+                <ViewerStream
+                ></ViewerStream>
+            </div>
 
 <!--            <div class="mt-8 text-2xl">-->
 <!--                Welcome to your Jetstream application!-->
@@ -96,9 +100,11 @@
 
 <script>
     import JetApplicationLogo from '@/Jetstream/ApplicationLogo'
+    import ViewerStream from "@/Jetstream/Components/ViewerStream";
 
     export default {
         components: {
+            ViewerStream,
             JetApplicationLogo,
         },
     }
