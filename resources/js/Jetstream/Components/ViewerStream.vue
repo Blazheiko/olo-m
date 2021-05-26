@@ -157,7 +157,7 @@ export default {
             };
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(stream=>{
-                    stream.getTracks().forEach(function(track) {
+                    stream.getTracks().forEach(track =>{
                         track.stop();
                     });
 
@@ -166,7 +166,7 @@ export default {
                     this.error_message ='Please select a media device from the list and start streaming.';
 
                 })
-                .catch(function(error) {
+                .catch(error => {
                     if (error.name === 'ConstraintNotSatisfiedError') {
                         alert('Разрешение ' + constraints.video.width.exact + 'x' +
                             constraints.video.height.exact + ' px не поддерживается устройством.');

@@ -16936,7 +16936,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           alert('Разрешения на использование камеры и микрофона не были предоставлены. ' + 'Вам нужно разрешить странице доступ к вашим устройствам,' + ' чтобы демо-версия работала.');
         }
 
-        this.errorMsg('getUserMedia error: ' + error.name, error);
+        _this2.errorMsg('getUserMedia error: ' + error.name, error);
       });
     },
     errorMsg: function errorMsg(msg, error) {
