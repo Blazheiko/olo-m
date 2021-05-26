@@ -16793,7 +16793,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       error_message: '',
       countGetUserMedia: 0,
       yourVideo: null,
-      mediaRecorder: null
+      mediaRecorder: null,
+      isShowVideo: false
     };
   },
   computed: {
@@ -16818,21 +16819,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
+                _this.isShowVideo = true;
+                _context.prev = 1;
 
                 if (!navigator.mediaDevices) {
-                  _context.next = 13;
+                  _context.next = 14;
                   break;
                 }
 
                 console.log('in showMyFace');
-                _context.next = 5;
+                _context.next = 6;
                 return navigator.mediaDevices.getUserMedia({
                   audio: true,
                   video: true
                 });
 
-              case 5:
+              case 6:
                 stream = _context.sent;
                 _this.yourVideo.srcObject = stream;
                 recTime = 60;
@@ -16857,30 +16859,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.mediaRecorder.start(recTime * 1000);
 
-                _context.next = 14;
+                _context.next = 15;
                 break;
-
-              case 13:
-                alert('error get user media');
 
               case 14:
-                _context.next = 19;
+                alert('error get user media');
+
+              case 15:
+                _context.next = 20;
                 break;
 
-              case 16:
-                _context.prev = 16;
-                _context.t0 = _context["catch"](0);
+              case 17:
+                _context.prev = 17;
+                _context.t0 = _context["catch"](1);
                 console.error('ошибка вебкамера....' + _context.t0);
 
-              case 19:
+              case 20:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 16]]);
+        }, _callee, null, [[1, 17]]);
       }))();
     },
     stopVideo: function stopVideo() {
+      this.isShowVideo = false;
       this.yourVideo.srcObject.getTracks().forEach(function (track) {
         return track.stop();
       });
@@ -19157,36 +19160,40 @@ var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("dat
 var _hoisted_1 = {
   "class": "row-auto"
 };
+var _hoisted_2 = {
+  key: 0,
+  "class": "row-span-full"
+};
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
   "class": "text-center"
 }, "Refresh list media devices", -1
 /* HOISTED */
 );
 
-var _hoisted_3 = {
+var _hoisted_4 = {
   "class": "col-6"
 };
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
   selected: "selected",
   disabled: ""
 }, "Select audio device", -1
 /* HOISTED */
 );
 
-var _hoisted_5 = {
+var _hoisted_6 = {
   "class": "col-6"
 };
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
   selected: "selected",
   disabled: ""
 }, "Select video device", -1
 /* HOISTED */
 );
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "row-auto"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("video", {
   "class": "",
@@ -19198,20 +19205,24 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
+var _hoisted_9 = {
+  "class": "inline-flex"
+};
+
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [!$data.isShowVideo ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
     "class": "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.refreshListDevices && $options.refreshListDevices.apply($options, arguments);
     }, ["prevent"]))
-  }, [_hoisted_2]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
-    "class": "transform",
+  }, [_hoisted_3]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
+    "class": "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.constraints.audio.deviceId.exact = $event;
     })
-  }, [_hoisted_4, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.audioDevices, function (audioDevice) {
+  }, [_hoisted_5, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.audioDevices, function (audioDevice) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("option", {
       value: audioDevice.deviceId
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(audioDevice.label), 9
@@ -19221,12 +19232,12 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* UNKEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.constraints.audio.deviceId.exact]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
-    "class": "transform",
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.constraints.audio.deviceId.exact]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
+    "class": "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.constraints.video.deviceId.exact = $event;
     })
-  }, [_hoisted_6, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.videoDevices, function (videoDevice) {
+  }, [_hoisted_7, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.videoDevices, function (videoDevice) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("option", {
       value: videoDevice.deviceId
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(videoDevice.label), 9
@@ -19236,7 +19247,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* UNKEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.constraints.video.deviceId.exact]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <span class=\"text-center\" :class=\"classErrorMessage\" v-if=\"error_message\">{{error_message}}</span>"), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.constraints.video.deviceId.exact]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <span class=\"text-center\" :class=\"classErrorMessage\" v-if=\"error_message\">{{error_message}}</span>"), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
     "class": "bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
     onClick: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.showMyFace && $options.showMyFace.apply($options, arguments);
@@ -19246,7 +19257,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
     onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.stopVideo && $options.stopVideo.apply($options, arguments);
     }, ["prevent"]))
-  }, "Stop"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_primary\" @click.prevent=\"enableView\">Enable</button>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_secondary\" @click.prevent=\"disableView\">Disable</button>")], 64
+  }, "Stop")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_primary\" @click.prevent=\"enableView\">Enable</button>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_secondary\" @click.prevent=\"disableView\">Disable</button>")], 64
   /* STABLE_FRAGMENT */
   );
 });

@@ -1,20 +1,26 @@
 <template>
     <div class="row-auto">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="refreshListDevices">
-            <span class="text-center">Refresh list media devices</span>
-        </button>
-        <div class="col-6">
-            <select class="transform" v-model="constraints.audio.deviceId.exact">
-                <option selected="selected" disabled>Select audio device</option>
-                <option v-for="audioDevice in audioDevices" :value="audioDevice.deviceId">{{ audioDevice.label }}</option>
-            </select>
+
+        <div class="row-span-full" v-if="!isShowVideo">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="refreshListDevices">
+                <span class="text-center">Refresh list media devices</span>
+            </button>
+            <div class="col-6">
+                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        v-model="constraints.audio.deviceId.exact">
+                    <option selected="selected" disabled>Select audio device</option>
+                    <option v-for="audioDevice in audioDevices" :value="audioDevice.deviceId">{{ audioDevice.label }}</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        v-model="constraints.video.deviceId.exact">
+                    <option selected="selected" disabled>Select video device</option>
+                    <option v-for="videoDevice in videoDevices" :value="videoDevice.deviceId">{{ videoDevice.label }}</option>
+                </select>
+            </div>
         </div>
-        <div class="col-6">
-            <select class="transform" v-model="constraints.video.deviceId.exact">
-                <option selected="selected" disabled>Select video device</option>
-                <option v-for="videoDevice in videoDevices" :value="videoDevice.deviceId">{{ videoDevice.label }}</option>
-            </select>
-        </div>
+
     </div>
 
 <!--    <span class="text-center" :class="classErrorMessage" v-if="error_message">{{error_message}}</span>-->
@@ -22,8 +28,11 @@
     <div class="row-auto">
         <video class="" id="videoPlayer" autoplay muted playsinline></video>
     </div>
-    <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="showMyFace">Start</button>
-    <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="stopVideo">Stop</button>
+    <div class="inline-flex">
+        <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="showMyFace">Start</button>
+        <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="stopVideo">Stop</button>
+    </div>
+
 <!--        <button class="button button_xs button_primary" @click.prevent="enableView">Enable</button>-->
 <!--        <button class="button button_xs button_secondary" @click.prevent="disableView">Disable</button>-->
 </template>
@@ -55,6 +64,7 @@ export default {
             countGetUserMedia:0,
             yourVideo:null,
             mediaRecorder:null,
+            isShowVideo:false,
         }
     },
     computed: {
@@ -72,6 +82,7 @@ export default {
     },
     methods:{
         async showMyFace() {
+            this.isShowVideo = true;
 
             try {
                 // get a local stream, show it in a self-view and add it to be sent
@@ -113,6 +124,7 @@ export default {
 
         },
         stopVideo(){
+            this.isShowVideo = false;
             this.yourVideo.srcObject.getTracks().forEach(track => track.stop());
             this.yourVideo.srcObject = null;
             this.mediaRecorder.stop();
