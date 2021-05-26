@@ -29,8 +29,10 @@
         <video class="" id="videoPlayer" autoplay muted playsinline></video>
     </div>
     <div class="inline-flex">
-        <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="showMyFace">Start</button>
-        <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click.prevent="stopVideo">Stop</button>
+        <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click.prevent="startRecordVideo">Start</button>
+        <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click.prevent="stopVideo">Stop</button>
     </div>
 
 <!--        <button class="button button_xs button_primary" @click.prevent="enableView">Enable</button>-->
@@ -65,6 +67,7 @@ export default {
             yourVideo:null,
             mediaRecorder:null,
             isShowVideo:false,
+            nameVideo:'',
         }
     },
     computed: {
@@ -81,7 +84,17 @@ export default {
         // this.showMyFace();
     },
     methods:{
+        startRecordVideo(){
+            axios.get('/start-record-video')
+                .then(response=>{
+                    console.log(response.data);
+                    let srcArr = response.data.src.split('/')
+                    this.nameVideo = srcArr.pop();
+                    this.showMyFace();
+                })
+        },
         async showMyFace() {
+            console.log(this.nameVideo);
             this.isShowVideo = true;
 
             try {
@@ -90,7 +103,7 @@ export default {
                     console.log('in showMyFace');
                     const stream = await navigator.mediaDevices.getUserMedia({audio:true, video:true});
                     this.yourVideo.srcObject = stream;
-                    const recTime = 60;
+                    const recTime = 10;
                     this.mediaRecorder = new MediaRecorder(stream);
                     this.mediaRecorder.ondataavailable = e => {
                         // fetch("api.php", {
@@ -100,7 +113,7 @@ export default {
                         // })
                         console.log('save video');
                         console.log(e);
-                        axios.post('/save-video',
+                        axios.post(`/save-video/${this.nameVideo}`,
                             e.data,
                             {
                                 headers: {
@@ -109,6 +122,10 @@ export default {
                             })
                         .then(response=>{
                             console.log(response.data);
+                            if(response.data.status !== 'ok'){
+                                alert('Error save video');
+                                this.stopVideo();
+                            }
                         })
                     };
                     this.mediaRecorder.start(recTime * 1000);

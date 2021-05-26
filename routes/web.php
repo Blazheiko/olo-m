@@ -26,7 +26,8 @@ use Inertia\Inertia;
 //});
 
 Route::get('/', [HomeController::class,'index']);
-Route::post('/save-video', [HomeController::class,'saveVideo']);
+Route::post('/save-video/{name}', [HomeController::class,'saveVideo']);
+Route::get('/start-record-video', [HomeController::class,'startRecordVideo']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');

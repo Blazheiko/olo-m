@@ -16794,7 +16794,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       countGetUserMedia: 0,
       yourVideo: null,
       mediaRecorder: null,
-      isShowVideo: false
+      isShowVideo: false,
+      nameVideo: ''
     };
   },
   computed: {
@@ -16810,8 +16811,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getMediaDevises(); // this.showMyFace();
   },
   methods: {
-    showMyFace: function showMyFace() {
+    startRecordVideo: function startRecordVideo() {
       var _this = this;
+
+      axios.get('/start-record-video').then(function (response) {
+        console.log(response.data);
+        var srcArr = response.data.src.split('/');
+        _this.nameVideo = srcArr.pop();
+
+        _this.showMyFace();
+      });
+    },
+    showMyFace: function showMyFace() {
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var stream, recTime;
@@ -16819,28 +16831,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.isShowVideo = true;
-                _context.prev = 1;
+                console.log(_this2.nameVideo);
+                _this2.isShowVideo = true;
+                _context.prev = 2;
 
                 if (!navigator.mediaDevices) {
-                  _context.next = 14;
+                  _context.next = 15;
                   break;
                 }
 
                 console.log('in showMyFace');
-                _context.next = 6;
+                _context.next = 7;
                 return navigator.mediaDevices.getUserMedia({
                   audio: true,
                   video: true
                 });
 
-              case 6:
+              case 7:
                 stream = _context.sent;
-                _this.yourVideo.srcObject = stream;
-                recTime = 60;
-                _this.mediaRecorder = new MediaRecorder(stream);
+                _this2.yourVideo.srcObject = stream;
+                recTime = 10;
+                _this2.mediaRecorder = new MediaRecorder(stream);
 
-                _this.mediaRecorder.ondataavailable = function (e) {
+                _this2.mediaRecorder.ondataavailable = function (e) {
                   // fetch("api.php", {
                   //     method: "POST",
                   //     headers: {"Content-Type": "video/webm", "X-PWD": pwd},
@@ -16848,38 +16861,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   // })
                   console.log('save video');
                   console.log(e);
-                  axios.post('/save-video', e.data, {
+                  axios.post("/save-video/".concat(_this2.nameVideo), e.data, {
                     headers: {
                       'Content-Type': "video/webm"
                     }
                   }).then(function (response) {
                     console.log(response.data);
+
+                    if (response.data.status !== 'ok') {
+                      alert('Error save video');
+
+                      _this2.stopVideo();
+                    }
                   });
                 };
 
-                _this.mediaRecorder.start(recTime * 1000);
+                _this2.mediaRecorder.start(recTime * 1000);
 
-                _context.next = 15;
+                _context.next = 16;
                 break;
-
-              case 14:
-                alert('error get user media');
 
               case 15:
-                _context.next = 20;
+                alert('error get user media');
+
+              case 16:
+                _context.next = 21;
                 break;
 
-              case 17:
-                _context.prev = 17;
-                _context.t0 = _context["catch"](1);
+              case 18:
+                _context.prev = 18;
+                _context.t0 = _context["catch"](2);
                 console.error('ошибка вебкамера....' + _context.t0);
 
-              case 20:
+              case 21:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 17]]);
+        }, _callee, null, [[2, 18]]);
       }))();
     },
     stopVideo: function stopVideo() {
@@ -16913,7 +16932,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$emit('disableviewervideo');
     },
     getUserMedia: function getUserMedia() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.countGetUserMedia++;
       var constraints = {
@@ -16926,9 +16945,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
         console.log('Получил поток с ограничениями:', constraints);
 
-        _this2.refreshListDevices();
+        _this3.refreshListDevices();
 
-        _this2.error_message = 'Please select a media device from the list and start streaming.';
+        _this3.error_message = 'Please select a media device from the list and start streaming.';
       })["catch"](function (error) {
         if (error.name === 'ConstraintNotSatisfiedError') {
           alert('Разрешение ' + constraints.video.width.exact + 'x' + constraints.video.height.exact + ' px не поддерживается устройством.');
@@ -16936,7 +16955,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           alert('Разрешения на использование камеры и микрофона не были предоставлены. ' + 'Вам нужно разрешить странице доступ к вашим устройствам,' + ' чтобы демо-версия работала.');
         }
 
-        _this2.errorMsg('getUserMedia error: ' + error.name, error);
+        _this3.errorMsg('getUserMedia error: ' + error.name, error);
       });
     },
     errorMsg: function errorMsg(msg, error) {
@@ -16947,20 +16966,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.getMediaDevises();
     },
     getMediaDevises: function getMediaDevises() {
-      var _this3 = this;
+      var _this4 = this;
 
       navigator.mediaDevices.enumerateDevices().then(function (devices) {
         console.log('Promise mediaDevices.enumerateDevices');
         console.log(devices);
 
-        _this3.deviceHandler(devices);
+        _this4.deviceHandler(devices);
       })["catch"](function (error) {
         console.log(error);
-        _this3.error_message = 'The browser does not currently support media device selection';
+        _this4.error_message = 'The browser does not currently support media device selection';
       });
     },
     deviceHandler: function deviceHandler(devices) {
-      var _this4 = this;
+      var _this5 = this;
 
       var isEmptyLabel = false;
 
@@ -16982,7 +17001,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               counterMicrophone++;
             }
 
-            _this4.audioDevices.push(audioEl);
+            _this5.audioDevices.push(audioEl);
           }
 
           if (device.kind === 'videoinput' && device.deviceId !== '') {
@@ -16997,7 +17016,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               counterCamera++;
             }
 
-            _this4.videoDevices.push(videoEl);
+            _this5.videoDevices.push(videoEl);
           }
         });
 
@@ -19250,7 +19269,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.constraints.video.deviceId.exact]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <span class=\"text-center\" :class=\"classErrorMessage\" v-if=\"error_message\">{{error_message}}</span>"), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
     "class": "bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
     onClick: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.showMyFace && $options.showMyFace.apply($options, arguments);
+      return $options.startRecordVideo && $options.startRecordVideo.apply($options, arguments);
     }, ["prevent"]))
   }, "Start"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
     "class": "bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",

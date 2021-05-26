@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MyVideo;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -21,20 +22,31 @@ class HomeController extends Controller
             'phpVersion' => PHP_VERSION,
         ]);
     }
+    public function startRecordVideo(){
+        Log::info('startRecordVideo');
+//        Log::info($request->all());
+        $user = Auth::user();
+        Storage::disk('public')->makeDirectory('video/'.$user->id);
+        $src = 'video/'.$user->id.'/'.time().'.webm';
+        MyVideo::create([
+            'user_id'=>$user->id,
+            'src'=>$src,
+        ]);
 
-    public function saveVideo(Request $request){
+        return response(['src'=>$src]);
+    }
+
+    public function saveVideo($name,Request $request){
         Log::info('saveVideo');
-        Log::info($request->all());
+//        Log::info($request->all());
         $user = Auth::user();
         @$data = file_get_contents("php://input") or $data = '';
 //        $flName = date("ymd-His").".webm";
-        $flName = "testVideo.webm";
-        $directory = 'video/'.$user->id;
-        Storage::makeDirectory($directory);
+//        $flName = "testVideo.webm";
 
         if ($data) {
-            file_put_contents(storage_path('app/public/'.$directory.'/'.$flName), $data,FILE_APPEND | LOCK_EX);
+            file_put_contents(storage_path('app/public/video/'.$user->id.'/'.$name), $data,FILE_APPEND | LOCK_EX);
         }
-        return response('ok');
+        return response(['status'=>'ok']);
     }
 }
