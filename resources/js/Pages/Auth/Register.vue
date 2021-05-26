@@ -7,6 +7,7 @@
         <jet-validation-errors class="mb-4" />
 
         <form @submit.prevent="submit">
+
             <div>
                 <jet-label for="name" value="Name" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />

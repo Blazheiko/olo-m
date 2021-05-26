@@ -15,13 +15,22 @@ use function Symfony\Component\String\s;
 class HomeController extends Controller
 {
     public function index(){
-        return Inertia::render('Welcome', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
+        return redirect(\route('dashboard'));
+//        return Inertia::render('Welcome', [
+//            'canLogin' => Route::has('login'),
+//            'canRegister' => Route::has('register'),
+////            'laravelVersion' => Application::VERSION,
+////            'phpVersion' => PHP_VERSION,
+//        ]);
     }
+
+    public function myVideo() {
+        $user = Auth::user();
+        $myVideos = $user->myVideos;
+    return Inertia::render('MyVideos',[
+        'myVideos'=>$myVideos
+    ]);
+}
     public function startRecordVideo(){
         Log::info('startRecordVideo');
 //        Log::info($request->all());
