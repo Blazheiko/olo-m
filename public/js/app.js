@@ -16759,7 +16759,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CardVideo",
-  props: ['video']
+  props: ['video'],
+  methods: {
+    deleteVideo: function deleteVideo() {
+      var _this = this;
+
+      if (confirm("\u0412\u044B \u0442\u043E\u0447\u043D\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0432\u0438\u0434\u0435\u043E ".concat(new Date(this.video.created_at).toLocaleDateString(), " time ").concat(new Date(this.video.created_at).toLocaleTimeString()))) {
+        console.log('start delete video');
+        axios.get("/delete-video/".concat(this.video.id)).then(function (response) {
+          console.log(response.data);
+          console.log(_this.video.id);
+
+          _this.$emit('delete_video', _this.video.id);
+        })["catch"](function (err) {
+          console.error(err);
+          alert('Error delete video');
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -16860,10 +16878,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 console.log('in showMyFace');
                 _context.next = 7;
-                return navigator.mediaDevices.getUserMedia({
-                  audio: true,
-                  video: true
-                });
+                return navigator.mediaDevices.getUserMedia(_this2.constraints);
 
               case 7:
                 stream = _context.sent;
@@ -18275,6 +18290,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     myVideos: Array
+  },
+  data: function data() {
+    return {
+      videos: []
+    };
+  },
+  mounted: function mounted() {
+    this.videos = this.myVideos;
+  },
+  methods: {
+    deleteVideo: function deleteVideo(id) {
+      console.log(id);
+      var index = this.videos.findIndex(function (video) {
+        return +video.id === +id;
+      });
+      console.log('index - ' + index);
+
+      if (index > 0) {
+        this.videos.splice(index, 1);
+      }
+    }
   }
 });
 
@@ -19242,26 +19278,25 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+var _hoisted_6 = {
   "class": "px-6 pt-4 pb-2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
-  "class": "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-}, "#delete"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
-  "class": "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-}, "#download"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("            <span class=\"inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2\">#winter</span>")], -1
-/* HOISTED */
-);
+};
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("video", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("source", {
-    src: $props.video.src
+    src: "/storage/".concat($props.video.src)
   }, null, 8
   /* PROPS */
   , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Date($props.video.created_at).toLocaleDateString()) + " time " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Date($props.video.created_at).toLocaleTimeString()), 1
   /* TEXT */
-  ), _hoisted_5]), _hoisted_6]);
+  ), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+    "class": "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2",
+    onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.deleteVideo && $options.deleteVideo.apply($options, arguments);
+    }, ["prevent"]))
+  }, "delete"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("            <span class=\"inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2\">download</span>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("            <span class=\"inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2\">#winter</span>")])]);
 });
 
 /***/ }),
@@ -22221,10 +22256,11 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
     "default": _withId(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.myVideos, function (video) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_card_video, {
-          video: video
+          video: video,
+          onDelete_video: $options.deleteVideo
         }, null, 8
         /* PROPS */
-        , ["video"]);
+        , ["video", "onDelete_video"]);
       }), 256
       /* UNKEYED_FRAGMENT */
       ))])])])];

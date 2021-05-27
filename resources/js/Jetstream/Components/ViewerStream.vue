@@ -101,7 +101,7 @@ export default {
                 // get a local stream, show it in a self-view and add it to be sent
                 if(navigator.mediaDevices){
                     console.log('in showMyFace');
-                    const stream = await navigator.mediaDevices.getUserMedia({audio:true, video:true});
+                    const stream = await navigator.mediaDevices.getUserMedia(this.constraints);
                     this.yourVideo.srcObject = stream;
                     const recTime = 10;
                     this.mediaRecorder = new MediaRecorder(stream);

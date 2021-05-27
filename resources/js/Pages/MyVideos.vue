@@ -11,6 +11,7 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <card-video v-for="video in myVideos"
                         :video="video"
+                        @delete_video="deleteVideo"
                     ></card-video>
                 </div>
             </div>
@@ -29,6 +30,26 @@ name: "MyVideos",
     },
     props:{
         myVideos:Array,
+    },
+    data(){
+        return{
+           videos:[]
+        }
+    },
+    mounted() {
+        this.videos = this.myVideos;
+    },
+    methods:{
+        deleteVideo(id){
+            console.log(id)
+            const index = this.videos.findIndex(video=>{
+                return +video.id === +id;
+            })
+            console.log('index - '+index);
+            if(index>0){
+                this.videos.splice(index,1);
+            }
+        }
     }
 }
 </script>

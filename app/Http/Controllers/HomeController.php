@@ -44,6 +44,15 @@ class HomeController extends Controller
 
         return response(['src'=>$src]);
     }
+    public function deleteVideo($id){
+        $video = MyVideo::find($id);
+
+        Storage::disk('public')->delete($video->src);
+        $video->delete();
+
+        return response(['status'=>'ok']);
+
+    }
 
     public function saveVideo($name,Request $request){
         Log::info('saveVideo');

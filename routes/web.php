@@ -28,6 +28,7 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class,'index']);
 Route::post('/save-video/{name}', [HomeController::class,'saveVideo']);
 Route::get('/start-record-video', [HomeController::class,'startRecordVideo']);
+Route::get('/delete-video/{id}', [HomeController::class,'deleteVideo']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     header('Feature-Policy: camera \'self\' '.config('app.url').'/dashboard');
