@@ -9,10 +9,16 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <card-video v-for="video in myVideos"
-                        :video="video"
-                        @delete_video="deleteVideo"
-                    ></card-video>
+                    <template v-if="videos.length>0">
+                        <card-video v-for="video in videos"
+                                    :video="video"
+                                    @delete_video="deleteVideo"
+                        ></card-video>
+                    </template>
+                    <template v-else>
+                        <span class="text-gray-700 text-base">У вас нету записанных видео</span>
+                    </template>
+
                 </div>
             </div>
         </div>
@@ -41,12 +47,11 @@ name: "MyVideos",
     },
     methods:{
         deleteVideo(id){
-            console.log(id)
+            // console.log(id)
             const index = this.videos.findIndex(video=>{
                 return +video.id === +id;
             })
-            console.log('index - '+index);
-            if(index>0){
+            if(index >= 0){
                 this.videos.splice(index,1);
             }
         }

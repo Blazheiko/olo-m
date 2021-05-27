@@ -18301,13 +18301,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     deleteVideo: function deleteVideo(id) {
-      console.log(id);
+      // console.log(id)
       var index = this.videos.findIndex(function (video) {
         return +video.id === +id;
       });
-      console.log('index - ' + index);
 
-      if (index > 0) {
+      if (index >= 0) {
         this.videos.splice(index, 1);
       }
     }
@@ -19292,7 +19291,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Date($props.video.created_at).toLocaleDateString()) + " time " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Date($props.video.created_at).toLocaleTimeString()), 1
   /* TEXT */
   ), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
-    "class": "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2",
+    "class": "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-500 hover:text-gray-900 mr-2 mb-2",
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.deleteVideo && $options.deleteVideo.apply($options, arguments);
     }, ["prevent"]))
@@ -19409,17 +19408,19 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* UNKEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.constraints.video.deviceId.exact]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <span class=\"text-center\" :class=\"classErrorMessage\" v-if=\"error_message\">{{error_message}}</span>"), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.constraints.video.deviceId.exact]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <span class=\"text-center\" :class=\"classErrorMessage\" v-if=\"error_message\">{{error_message}}</span>"), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [!$data.isShowVideo ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("button", {
+    key: 0,
     "class": "bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
     onClick: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.startRecordVideo && $options.startRecordVideo.apply($options, arguments);
     }, ["prevent"]))
-  }, "Start"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+  }, "Start")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("button", {
+    key: 1,
     "class": "bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
     onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.stopVideo && $options.stopVideo.apply($options, arguments);
     }, ["prevent"]))
-  }, "Stop")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_primary\" @click.prevent=\"enableView\">Enable</button>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_secondary\" @click.prevent=\"disableView\">Disable</button>")], 64
+  }, "Stop"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_primary\" @click.prevent=\"enableView\">Enable</button>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button class=\"button button_xs button_secondary\" @click.prevent=\"disableView\">Disable</button>")], 64
   /* STABLE_FRAGMENT */
   );
 });
@@ -22241,6 +22242,10 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "bg-white overflow-hidden shadow-xl sm:rounded-lg"
 };
+var _hoisted_5 = {
+  key: 1,
+  "class": "text-gray-700 text-base"
+};
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -22254,7 +22259,9 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       return [_hoisted_1];
     }),
     "default": _withId(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.myVideos, function (video) {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [$data.videos.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        key: 0
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.videos, function (video) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_card_video, {
           video: video,
           onDelete_video: $options.deleteVideo
@@ -22263,7 +22270,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
         , ["video", "onDelete_video"]);
       }), 256
       /* UNKEYED_FRAGMENT */
-      ))])])])];
+      )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_5, "У вас нету записанных видео"))])])])];
     }),
     _: 1
     /* STABLE */

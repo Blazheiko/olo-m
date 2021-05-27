@@ -30,9 +30,9 @@
     </div>
     <div class="inline-flex">
         <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                @click.prevent="startRecordVideo">Start</button>
+                @click.prevent="startRecordVideo" v-if="!isShowVideo">Start</button>
         <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                @click.prevent="stopVideo">Stop</button>
+                @click.prevent="stopVideo" v-else>Stop</button>
     </div>
 
 <!--        <button class="button button_xs button_primary" @click.prevent="enableView">Enable</button>-->
