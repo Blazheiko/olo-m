@@ -12,7 +12,7 @@
             </p>
         </div>
         <div class="px-6 pt-4 pb-2">
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-500 hover:text-gray-900 mr-2 mb-2"
+            <span class="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75"
                 @click.prevent="deleteVideo">delete</span>
 <!--            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">download</span>-->
 <!--            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>-->

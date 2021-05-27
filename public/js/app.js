@@ -19291,7 +19291,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Date($props.video.created_at).toLocaleDateString()) + " time " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Date($props.video.created_at).toLocaleTimeString()), 1
   /* TEXT */
   ), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
-    "class": "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-500 hover:text-gray-900 mr-2 mb-2",
+    "class": "py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75",
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.deleteVideo && $options.deleteVideo.apply($options, arguments);
     }, ["prevent"]))
